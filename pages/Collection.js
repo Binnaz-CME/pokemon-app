@@ -22,11 +22,11 @@ export default function Collection() {
 
   return (
     <Wrapper title="My collection">
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 justify-items-center">
         {cards.map((card) => (
           <div className="relative" key={card.id}>
             <Pokemon pokemon={card} />
-            <button onClick={() => deleteFromCollection(card.id)} className="absolute bottom-0 left-0 bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 mt-5 rounded ">𝗫</button>
+            <button onClick={() => deleteFromCollection(card.id)} className="absolute bottom-0 left-0 bg-blue-500 hover:bg-blue-300 active:bg-blue-900 text-white py-2 px-4 mt-5 rounded ">𝗫</button>
           </div>
         ))}
       </div>

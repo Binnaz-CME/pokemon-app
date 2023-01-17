@@ -9,7 +9,7 @@ function Pokemon({ pokemon }) {
         <Image
           alt={pokemon.name}
           src={pokemon.images.small}
-          width={200}
+          width={300}
           height={450}
         />
       </div>

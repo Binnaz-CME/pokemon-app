@@ -7,8 +7,8 @@ function singlePokemon({ singlePokemon }) {
 
 
   return (
-    <Wrapper>
-      <div className="flex m-5 flex-col justify-center">
+    <Wrapper title={singlePokemon.name}>
+      <div className="flex m-5 flex-col justify-center items-center">
         <Image
           src={singlePokemon.images.large}
           alt={singlePokemon.name}
@@ -16,7 +16,7 @@ function singlePokemon({ singlePokemon }) {
           width={400}
         />
 
-        <div className="flex justify-center mt-5">
+        <div className="flex justify-center mt-5 ">
           <div>
             <p className="m-2">
               First released: {singlePokemon.set.releaseDate}
