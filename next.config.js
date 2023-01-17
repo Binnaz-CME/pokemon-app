@@ -6,7 +6,8 @@ const nextConfig = {
   },
   images: {
     domains: ['images.pokemontcg.io']
-  }
+  }, 
+  productionBrowserSourceMaps: true,
 }
 
 module.exports = nextConfig

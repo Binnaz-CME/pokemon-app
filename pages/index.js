@@ -33,7 +33,7 @@ export default function Home({ pokemonCards }) {
 
   async function handleSearch(query, e) {
     e.preventDefault();
-    
+
     let q;
 
     if (query.query === 'types') {
@@ -42,7 +42,7 @@ export default function Home({ pokemonCards }) {
       q = 'name'
     };
 
-    const response = await axios.get(`https://api.pokemontcg.io/v2/cards?q=${q}:"${query.value}"`, {
+    const response = await axios.get(`https://api.pokemontcg.io/v2/cards?page=1&pageSize=25&q=${q}:"${query.value}"`, {
       headers: {
         "x-api-key": process.env.API_KEY,
       },
