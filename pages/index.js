@@ -27,7 +27,7 @@ export default function Home({ pokemonCards }) {
     const exists = collection && collection.find((item) => item.id === card.id);
 
     if (!exists) {
-      setCollection((prev) => [...prev, card]);
+      setCollection((prev) => [...(prev || []), card]);
     }
   }
 

@@ -1,13 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  productionBrowserSourceMaps: true,
   env: {
     API_KEY: process.env.API_KEY
   },
   images: {
     domains: ['images.pokemontcg.io']
   }, 
-  productionBrowserSourceMaps: true,
 }
 
 module.exports = nextConfig
