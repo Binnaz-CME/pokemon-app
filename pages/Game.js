@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Wrapper from "../components/Wrapper";
 import GameCard from "../components/GameCard";
-import { getGameCards } from "./axios/api";
+import { getGameCards } from "../axios/api";
 
 export default function Game({ gameCards }) {
   const [cards, setCards] = useState([]);
