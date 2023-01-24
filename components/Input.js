@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import Svg from "./Svg";
 import Select from "./Select";
 
-export default function Input({ handleSearch, loading }) {
+export default function Input({ handleSearch, loadingName, loadingType }) {
   const [pokemon, setPokemon] = useState({});
   const [type, setType] = useState({});
 
-  console.log(type);
   function handleChange(e) {
     const { value } = e.target;
     setPokemon({ query: pokemon, value });
@@ -33,10 +32,10 @@ export default function Input({ handleSearch, loading }) {
           <button
             onClick={(e) => handleSearch(pokemon, e)}
             type="button"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
           >
-            {loading && type.query !== "types" ? <Svg /> : null}
-            {loading && type.query !== "types" ? "Loading..." : "Search"}
+            {loadingName ? <Svg /> : null}
+            {loadingName ? "Loading..." : "Search"}
           </button>
         </div>
       </form>
@@ -51,10 +50,10 @@ export default function Input({ handleSearch, loading }) {
           <button
             onClick={(e) => handleSearch(type, e)}
             type="button"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
           >
-            {loading ? <Svg /> : null}
-            {loading ? "Loading..." : "Search"}
+            {loadingType ? <Svg /> : null}
+            {loadingType ? "Loading..." : "Search"}
           </button>
         </div>
       </form>
