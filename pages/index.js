@@ -1,27 +1,16 @@
 import Wrapper from "../components/Wrapper";
 import Pokemon from "../components/Pokemon";
 import Input from "../components/Input";
-import axios from "axios";
 import { useState, useEffect } from "react";
+import { getCards, getPokemon, searchPokemon } from "./axios/api";
 
 export default function Home({ pokemonCards }) {
   const [pokemon, setPokemon] = useState(pokemonCards);
-  const [page, setPage] = useState(1);
-  // const [loading, seLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [collection, setCollection] = useState(null);
-
-  async function getPokemon(url, next) {
-    const response = await axios.get(url, {
-      headers: {
-        "x-api-key": process.env.API_KEY,
-      },
-    });
-
-    const nextPokemon = response.data.data;
-    setPokemon(nextPokemon);
-
-    setPage(next ? page + 1 : page - 1);
-  }
+  const [search, setSearch] = useState(false)
+  const [query, setQuery] = useState('')
 
   function addToCollection(card) {
     const exists = collection && collection.find((item) => item.id === card.id);
@@ -33,24 +22,41 @@ export default function Home({ pokemonCards }) {
 
   async function handleSearch(query, e) {
     e.preventDefault();
+    setLoading(true)
+    setSearch(true)
 
     let q;
+    query.query === "types" ? (q = "types") : (q = "name");
+    setQuery({value: query.value, q})
 
-    if (query.query === 'types') {
-      q = 'types'
-    } else {
-      q = 'name'
-    };
+    const searchResult = await searchPokemon(q, query.value, currentPage);
 
-    const response = await axios.get(`https://api.pokemontcg.io/v2/cards?page=1&pageSize=25&q=${q}:"${query.value}"`, {
-      headers: {
-        "x-api-key": process.env.API_KEY,
-      },
-    });
-
-    const searchResult = response.data.data;
     setPokemon(searchResult);
+    setLoading(false)
   }
+
+  function handlePageChange(next) {
+    setCurrentPage(next ? currentPage + 1 : currentPage - 1);
+  }
+
+  useEffect(() => {
+    async function getNewPage() {
+      setLoading(true)
+
+      if(search) {
+        console.log(query)
+        const searchResult = await searchPokemon(query.q, query.value, currentPage);
+        setPokemon(searchResult);
+      } else {
+        const newPage = await getPokemon(currentPage);
+        setPokemon(newPage);
+      }
+
+      setLoading(false)
+    }
+
+    getNewPage();
+  }, [currentPage]);
 
   useEffect(() => {
     if (!collection) return;
@@ -65,9 +71,8 @@ export default function Home({ pokemonCards }) {
 
   return (
     <Wrapper title="PokéDex">
-      <Input handleSearch={handleSearch} />
-
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-10 justify-items-center">
+      <Input handleSearch={handleSearch} loading={loading}/>
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 justify-items-center max-w-6xl m-auto">
         {pokemon.map((card) => (
           <div className="relative" key={card.id}>
             <Pokemon pokemon={card} />
@@ -81,27 +86,18 @@ export default function Home({ pokemonCards }) {
         ))}
       </div>
 
-      <div className="flex justify-center text-sm m-6">
+      <div className="flex justify-center items-center text-sm m-6">
         <button
-          disabled={page === 1}
-          className="disabled:bg-gray-500 bg-blue-500 hover:bg-blue-300 active:bg-blue-900 text-white py-2 px-4 mt-5 rounded  m-3"
-          onClick={() =>
-            getPokemon(
-              `https://api.pokemontcg.io/v2/cards?page=${page}}&pageSize=25&orderBy=name,-number`,
-              false
-            )
-          }
+          disabled={currentPage === 1}
+          className="disabled:bg-gray-500 bg-blue-500 hover:bg-blue-300 active:bg-blue-900 text-white py-2 px-4 mt-5 rounded m-3 "
+          onClick={() => handlePageChange(false)}
         >
-          Prev
+          Previous
         </button>
+        <p className="py-2 px-8">{currentPage}</p>
         <button
-          className="disabled:bg-gray-500 bg-blue-500 hover:bg-blue-300  active:bg-blue-900 text-white py-2 px-4 mt-5 rounded m-3"
-          onClick={() =>
-            getPokemon(
-              `https://api.pokemontcg.io/v2/cards?page=${page}}&pageSize=25&orderBy=name,-number`,
-              true
-            )
-          }
+          className="disabled:bg-gray-500 bg-blue-500 hover:bg-blue-300  active:bg-blue-900 text-white py-2 px-7 mt-5 rounded m-3 "
+          onClick={() => handlePageChange(true)}
         >
           Next
         </button>
@@ -111,16 +107,7 @@ export default function Home({ pokemonCards }) {
 }
 
 export async function getStaticProps(context) {
-  const response = await axios.get(
-    `https://api.pokemontcg.io/v2/cards?page=1&pageSize=25&orderBy=name,-number`,
-    {
-      headers: {
-        "x-api-key": process.env.API_KEY,
-      },
-    }
-  );
-
-  const pokemonCards = response.data.data;
+  const pokemonCards = await getCards();
 
   return {
     props: { pokemonCards },

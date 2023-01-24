@@ -21,8 +21,8 @@ export default function Collection() {
   }
 
   return (
-    <Wrapper title="My collection">
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 justify-items-center">
+    <Wrapper title="MyCollection">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 justify-items-center max-w-6xl m-auto">
         {cards.map((card) => (
           <div className="relative" key={card.id}>
             <Pokemon pokemon={card} />
