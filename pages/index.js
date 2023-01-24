@@ -2,7 +2,7 @@ import Wrapper from "../components/Wrapper";
 import Pokemon from "../components/Pokemon";
 import Input from "../components/Input";
 import { useState, useEffect } from "react";
-import { getCards, getPokemon, searchPokemon } from "./axios/api";
+import { getCards, getPokemon, searchPokemon } from "../axios/api";
 
 export default function Home({ pokemonCards }) {
   const [pokemon, setPokemon] = useState(pokemonCards);
