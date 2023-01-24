@@ -1,10 +1,5 @@
 import axios from "axios";
-
-const config = {
-  headers: {
-    "x-api-key": process.env.API_KEY,
-  },
-};
+import { config } from "../../config";
 
 export async function getCards() {
   const { data } = await axios.get(
