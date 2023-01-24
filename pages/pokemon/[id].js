@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Wrapper from "../../components/Wrapper";
 import Image from "next/image";
-import { getSinglePokemon } from "../axios/api";
+import { getSinglePokemon } from "../../axios/api";
 
 function singlePokemon({ singlePokemon }) {
   return (
