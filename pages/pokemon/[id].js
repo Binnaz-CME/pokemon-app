@@ -3,7 +3,7 @@ import Wrapper from "../../components/Wrapper";
 import Image from "next/image";
 import { getSinglePokemon } from "../../axios/api";
 
-function singlePokemon({ singlePokemon }) {
+export default function singlePokemon({ singlePokemon }) {
   return (
     <Wrapper title={singlePokemon.name}>
       <div className="flex m-5 flex-col justify-center items-center">
@@ -34,8 +34,6 @@ function singlePokemon({ singlePokemon }) {
     </Wrapper>
   );
 }
-
-export default singlePokemon;
 
 export async function getServerSideProps(context) {
   const singlePokemon = await getSinglePokemon(context);

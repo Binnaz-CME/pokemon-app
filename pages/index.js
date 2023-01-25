@@ -16,7 +16,6 @@ export default function Home({ pokemonCards }) {
   const router = useRouter();
 
   const handleSearch = (event) => {
-    event.preventDefault();
     if (!event.value) return;
 
     setSearch(true);

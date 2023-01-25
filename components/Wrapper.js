@@ -3,7 +3,7 @@ import Head from "next/head";
 import Navigation from "./Navigation";
 import Footer from "./Footer";
 
-const Wrapper = ({ children, title, header}) => {
+const Wrapper = ({ children, title}) => {
   return (
     <div>
       <Head>
