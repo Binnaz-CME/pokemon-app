@@ -8,7 +8,7 @@ export default function Input({ handleSearch, loadingName, loadingType }) {
 
   function handleChange(e) {
     const { value } = e.target;
-    setPokemon({ query: pokemon, value });
+    setPokemon({ query: "name", value });
   }
 
   function handleSelect(e) {

@@ -24,7 +24,6 @@ export async function searchPokemon(q, value, page) {
     `https://api.pokemontcg.io/v2/cards?page=${page}&pageSize=15&q=${q}:"${value}"`,
     config
   );
-console.log(data)
   return data;
 }
 
