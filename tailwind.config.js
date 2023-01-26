@@ -5,10 +5,15 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        display: ["Coda"],
+      },
+    },
   },
   variants: {
-    backgroundColor: ['responsive', 'hover', 'focus', 'active']
+    backgroundColor: ["responsive", "hover", "focus", "active"],
   },
+
   plugins: [],
 };

@@ -1,7 +1,14 @@
 import React from "react";
 import Pokemon from "./Pokemon";
 
-export function PokemonList({ pokemon, currentPage, hideNext, addToCollection, handlePageChange }) {
+export function PokemonList({
+  pokemon,
+  currentPage,
+  hideNext,
+  addToCollection,
+  handlePageChange,
+}) {
+  console.log(pokemon);
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 justify-items-center max-w-6xl m-auto">
@@ -10,9 +17,9 @@ export function PokemonList({ pokemon, currentPage, hideNext, addToCollection, h
             <Pokemon pokemon={card} />
             <button
               onClick={() => addToCollection(card)}
-              className="bg-blue-500 hover:bg-blue-300 active:bg-blue-900 text-white py-2 px-4 mt-5 rounded absolute bottom-0 left-0"
+              className="bg-white hover:bg-blue-300 active:bg-blue-900 text-white py-1 px-2 rounded absolute bottom-0 left-0 text-[1.5rem]"
             >
-              ♥️
+              💙
             </button>
           </div>
         ))}

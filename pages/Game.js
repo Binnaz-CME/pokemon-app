@@ -56,12 +56,11 @@ export default function Game({ gameCards }) {
       }
     }
 
-    const finishedGame = cards.every(card => card.matched === true)
+    const finishedGame = cards.every((card) => card.matched === true);
 
-    if(finishedGame) {
-      setScore(turns * 5)
+    if (finishedGame) {
+      setScore(turns * 5);
     }
-   
   }, [cardOne, cardTwo]);
 
   useEffect(() => {
@@ -69,7 +68,19 @@ export default function Game({ gameCards }) {
   }, []);
 
   return (
-    <Wrapper title="PokéMemory">
+    <Wrapper title="Pokémemory">
+      <div className="flex justify-between items-center max-w-3xl mx-auto">
+        <div>
+          <p>Turns: {turns}</p>
+          <p>Score: {score}</p>
+        </div>
+        <button
+          className="bg-blue-500 hover:bg-blue-300  active:bg-blue-900 text-white py-2 px-4 mt-5 rounded m-3"
+          onClick={initiateGame}
+        >
+          Restart
+        </button>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center max-w-3xl m-auto">
         {cards.map((card) => (
           <GameCard
@@ -80,24 +91,17 @@ export default function Game({ gameCards }) {
             disabled={disabled}
           />
         ))}
-        <p>Turns: {turns}</p>
-        <p>Score: {score}</p>
-        <button
-          className="bg-blue-500 hover:bg-blue-300  active:bg-blue-900 text-white py-2 px-4 mt-5 rounded m-3"
-          onClick={initiateGame}
-        >
-          Restart
-        </button>
       </div>
     </Wrapper>
   );
 }
 
 export async function getStaticProps(context) {
-
   const maxPage = 1500;
   const minPage = 1;
-  const randomPage = Math.floor(Math.random() * (maxPage - minPage + 1) + minPage);
+  const randomPage = Math.floor(
+    Math.random() * (maxPage - minPage + 1) + minPage
+  );
 
   const cardObjects = await getGameCards(randomPage);
 

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { getCards, getPokemon, searchPokemon } from "../axios/api";
 import { useRouter } from "next/router";
 import { PokemonList } from "../components/PokemonList";
+import Spinner from "../components/Spinner";
 
 export default function Home({ pokemonCards }) {
   const [pokemon, setPokemon] = useState(pokemonCards);
@@ -29,7 +30,7 @@ export default function Home({ pokemonCards }) {
     const exists = collection && collection.find((item) => item.id === card.id);
 
     if (!exists) {
-      setCollection((prev) => [...(prev || []), card]);
+      setCollection((prev) => [...(prev || []), {...card, liked: true}]);
     }
   }
 
@@ -50,19 +51,17 @@ export default function Home({ pokemonCards }) {
 
   useEffect(() => {
     async function getNewPage() {
-      console.log('search från index:', search)
       if (search) {
         const { data } = await searchPokemon(
           query.query,
           query.value,
           currentPage
         );
-        console.log('data från index', data)
 
         setDisabled(data.length < 15);
         setPokemon(data);
       } else {
-        console.log("kör fel kod från index");
+        console.log("new page");
         setLoading(true);
         const newPage = await getPokemon(currentPage);
         setPokemon(newPage);
@@ -73,23 +72,20 @@ export default function Home({ pokemonCards }) {
     getNewPage();
   }, [currentPage, search]);
 
-  if (loading)
-    return (
-      <Wrapper>
-        <p className="h-screen">Loading...</p>
-      </Wrapper>
-    );
-
   return (
-    <Wrapper title="PokéDex">
+    <Wrapper title="Pokédex" >
       <Input handleSearch={handleSearch} />
-      <PokemonList
-        pokemon={pokemon}
-        addToCollection={addToCollection}
-        handlePageChange={handlePageChange}
-        hideNext={disabled}
-        currentPage={currentPage}
-      />
+      {loading ? (
+       <Spinner />
+      ) : (
+        <PokemonList
+          pokemon={pokemon}
+          addToCollection={addToCollection}
+          handlePageChange={handlePageChange}
+          hideNext={disabled}
+          currentPage={currentPage}
+        />
+      )}
     </Wrapper>
   );
 }

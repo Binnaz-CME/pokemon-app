@@ -3,7 +3,6 @@ import Image from "next/image";
 import back from "../images/pokemon_card_backside.png";
 
 export default function GameCard({ card, handleChoice, flipped, disabled }) {
-
   function handleClick() {
     if (!disabled) {
       handleChoice(card);

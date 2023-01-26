@@ -13,7 +13,10 @@ export default function Search({ pokemonCards, searchParams }) {
   const [disabled, setDisabled] = useState(false);
   const [collection, setCollection] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [query, setQuery] = useState({query: searchParams[0], value: searchParams[1]});
+  const [query, setQuery] = useState({
+    query: searchParams[0],
+    value: searchParams[1],
+  });
   const router = useRouter();
 
   function addToCollection(card) {
@@ -49,23 +52,16 @@ export default function Search({ pokemonCards, searchParams }) {
   }
 
   useEffect(() => {
-
     async function getNewPage() {
-
       if (!query.value) return;
-        console.log("searchfrån search:", query);
 
-        const { data } = await searchPokemon(query.query, query.value, currentPage);
-        console.log("data från search", data);
-        setDisabled(data.length < 15);
-        setPokemon(data);
-      // else {
-      //   console.log('kör fel kod från "Search"', query.value);
-      //   setLoading(true);
-      //   const newPage = await getPokemon(currentPage);
-      //   setPokemon(newPage);
-      //   setLoading(false);
-      // }
+      const { data } = await searchPokemon(
+        query.query,
+        query.value,
+        currentPage
+      );
+      setDisabled(data.length < 15);
+      setPokemon(data);
     }
 
     getNewPage();
@@ -83,7 +79,7 @@ export default function Search({ pokemonCards, searchParams }) {
   }, []);
 
   return (
-    <Wrapper title="PokéDex">
+    <Wrapper title="Pokédex">
       <Input
         handleSearch={handleSearch}
         loading={loading}
