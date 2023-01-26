@@ -7,7 +7,6 @@ export default function Collection() {
   const [cards, setCards] = useState([]);
   const [chosenCard, setChosenCard] = useState({});
   const [showModal, setShowModal] = useState(false);
-  console.log(cards);
   useEffect(() => {
     const savedCards = JSON.parse(localStorage.getItem("collection"));
     if (savedCards !== null) setCards(savedCards);

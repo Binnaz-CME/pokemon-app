@@ -61,7 +61,6 @@ export default function Home({ pokemonCards }) {
         setDisabled(data.length < 15);
         setPokemon(data);
       } else {
-        console.log("new page");
         setLoading(true);
         const newPage = await getPokemon(currentPage);
         setPokemon(newPage);

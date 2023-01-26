@@ -12,7 +12,7 @@ export default function Game({ gameCards }) {
   const [turns, setTurns] = useState(0);
   const [disabled, setDisabled] = useState(false);
   const [score, setScore] = useState(0);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
 
 
   function initiateGame() {
