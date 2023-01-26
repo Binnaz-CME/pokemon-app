@@ -10,7 +10,7 @@ export default function GameCard({ card, handleChoice, flipped, disabled }) {
   }
 
   return (
-    <div className="group h-[250px] w-[175px] [perspective:1000px]">
+    <div className={card.matched ? "group h-[250px] w-[175px] [perspective:1000px] bg-amber-300 rounded-2xl border-8 border-amber-300" : "group h-[250px] w-[175px] [perspective:1000px] rounded-2xl hover:border-8 hover:rounded-2xl hover:border-blue-900 " }>
       <div
         className={
           flipped

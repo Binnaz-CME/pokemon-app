@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import Wrapper from "../components/Wrapper";
 import GameCard from "../components/GameCard";
 import { getGameCards } from "../axios/api";
+import FinishedGame from "../components/FinishedGame";
 
 export default function Game({ gameCards }) {
   const [cards, setCards] = useState([]);
@@ -11,8 +12,8 @@ export default function Game({ gameCards }) {
   const [turns, setTurns] = useState(0);
   const [disabled, setDisabled] = useState(false);
   const [score, setScore] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
-  console.log(cards);
 
   function initiateGame() {
     const initalCards = [...gameCards, ...gameCards]
@@ -23,6 +24,7 @@ export default function Game({ gameCards }) {
     setCardOne(null);
     setCardTwo(null);
     setTurns(0);
+    setScore(0)
   }
 
   function handleChoice(card) {
@@ -55,11 +57,11 @@ export default function Game({ gameCards }) {
         setTimeout(() => resetTurn(), 1000);
       }
     }
-
     const finishedGame = cards.every((card) => card.matched === true);
 
-    if (finishedGame) {
+    if (finishedGame && cards.length) {
       setScore(turns * 5);
+      setShowModal(true);
     }
   }, [cardOne, cardTwo]);
 
@@ -92,6 +94,7 @@ export default function Game({ gameCards }) {
           />
         ))}
       </div>
+      {showModal ? <FinishedGame setShowModal={setShowModal} turns={turns} score={score}/> : null}
     </Wrapper>
   );
 }

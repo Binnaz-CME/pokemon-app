@@ -8,7 +8,7 @@ export function PokemonList({
   addToCollection,
   handlePageChange,
 }) {
-  console.log(pokemon);
+ 
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 justify-items-center max-w-6xl m-auto">
