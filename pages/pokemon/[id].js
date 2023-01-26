@@ -11,6 +11,7 @@ export default function singlePokemon({ singlePokemon }) {
           <div className="relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
             <div className="absolute inset-0">
               <Image
+                className="rounded-xl"
                 src={singlePokemon.images.large}
                 alt={singlePokemon.name}
                 height={558}
@@ -28,7 +29,8 @@ export default function singlePokemon({ singlePokemon }) {
                 </p>
                 <p className="text-2xl m-2">Rarity: {singlePokemon.rarity}</p>
                 <p className="text-2xl m-2 mb-2">
-                  Average sell price: {`${singlePokemon.cardmarket.prices?.averageSellPrice}€` ??
+                  Average sell price:{" "}
+                  {`${singlePokemon.cardmarket.prices?.averageSellPrice}€` ??
                     " Not available"}
                 </p>
                 <div className="mt-5 rounded-md bg-neutral-700 py-2 px-4 text-md hover:bg-blue-900">
